@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react'
+import { useDispatch } from 'react-redux'
 
 import Card from '@mui/material/Card'
 import CardHeader from '@mui/material/CardHeader'
@@ -8,7 +9,9 @@ import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
 import Stack from '@mui/material/Stack'
 
-function Login(props) {
+function Login() {
+  const dispatch = useDispatch()
+
   const email = useRef()
   const password = useRef()
   const [error, setError] = useState('')
@@ -41,7 +44,13 @@ function Login(props) {
         return
       }
 
-      props.onLogin(data.token)
+      dispatch({
+        type: 'set-user',
+        payload: {
+          token: data.token,
+          email: email.current.value
+        }
+      })
     } catch(err) {
       console.log(err)
       setError('Váratlan hiba')
