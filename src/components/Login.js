@@ -22,7 +22,7 @@ function Login() {
     setError('')
 
     try {
-      const response = await fetch('http://localhost:8000/users/login', {
+      const response = await fetch(process.env.REACT_APP_API_BASE_URL + '/users/login', {
         method: 'POST',
         body: JSON.stringify({ 
           email: email.current.value, 
