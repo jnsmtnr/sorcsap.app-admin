@@ -1,6 +1,8 @@
 import { useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
 
+import api from '../api/index'
+
 import Card from '@mui/material/Card'
 import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
@@ -22,24 +24,12 @@ function Login() {
     setError('')
 
     try {
-      const response = await fetch(process.env.REACT_APP_API_BASE_URL + '/users/login', {
-        method: 'POST',
-        body: JSON.stringify({ 
-          email: email.current.value, 
-          password: password.current.value 
-        }),
-        headers: {
-          'Content-Type': 'application/json'
-        },
+      const response = await api.post('/users/login', {
+        email: email.current.value,
+        password: password.current.value
       })
-      
-      if (!response.ok) {
-        setError('Rossz e-mail vagy jelszó')
-        return 
-      }
-      const data = await response.json()
-      
-      if (!data.admin) {
+
+      if (!response.data.admin) {
         setError('A felhasználó nem admin')
         return
       }
@@ -47,12 +37,16 @@ function Login() {
       dispatch({
         type: 'set-user',
         payload: {
-          token: data.token,
+          token: response.data.token,
           email: email.current.value
         }
       })
-    } catch(err) {
-      console.log(err)
+    } catch (err) {
+      if (err.response?.status === 401) {
+        setError('Rossz e-mail vagy jelszó')
+        return
+      }
+
       setError('Váratlan hiba')
     }
   }
