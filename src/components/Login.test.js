@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import App from './App';
+import Login from './Login';
 
 jest.mock('react-redux', () => ({
   useDispatch: jest.fn(),
@@ -7,7 +7,7 @@ jest.mock('react-redux', () => ({
 }))
 
 test('renders login form', () => {
-  render(<App />);
+  render(<Login />);
   const mui = screen.getByText(/Bejelentkezés az admin felületbe/i);
   expect(mui).toBeInTheDocument();
 });
