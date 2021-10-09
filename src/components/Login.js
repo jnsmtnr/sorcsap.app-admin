@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 
 import api from '../api/index'
 
@@ -13,6 +14,7 @@ import Stack from '@mui/material/Stack'
 
 function Login() {
   const dispatch = useDispatch()
+  const history = useHistory()
 
   const email = useRef()
   const password = useRef()
@@ -41,6 +43,8 @@ function Login() {
           email: email.current.value
         }
       })
+
+      history.replace('/')
     } catch (err) {
       if (err.response?.status === 401) {
         setError('Rossz e-mail vagy jelszó')

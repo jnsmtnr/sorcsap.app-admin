@@ -1,20 +1,26 @@
 import { useSelector } from 'react-redux'
-
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 import Container from '@mui/material/Container'
-import Box from '@mui/material/Box'
-import Login from './components/Login'
+
+import LoginPage from './pages/LoginPage'
+import Dashboard from './pages/Dashboard'
 
 function App() {
-  const token = useSelector(state => state.token)
+    const token = useSelector(state => state.token)
 
-  return (
-    <Container maxWidth="md">
-      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-        {!token && <Login />}
-        {token && <div>Bejelentkezve</div>}
-      </Box>
-    </Container>
-  );
+    return (
+        <Container maxWidth="md">
+            <Router>
+                <Switch>
+                    {!token && <Route path="/login"><LoginPage /></Route>}
+                    {!token && <Redirect to="/login" />}
+                    <Route to="/" exact>
+                        <Dashboard />
+                    </Route>
+                </Switch>
+            </Router>
+        </Container>
+    );
 }
 
 export default App;
