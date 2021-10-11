@@ -8,7 +8,7 @@ import Card from '@mui/material/Card'
 import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
 import CartActions from '@mui/material/CardActions'
-import Button from '@mui/material/Button'
+import LoadingButton from '@mui/lab/LoadingButton'
 import TextField from '@mui/material/TextField'
 import Stack from '@mui/material/Stack'
 
@@ -19,11 +19,13 @@ function Login() {
   const email = useRef()
   const password = useRef()
   const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
 
   async function handleSubmit(event) {
     event.preventDefault()
 
     setError('')
+    setLoading(true)
 
     try {
       const response = await api.post('/users/login', {
@@ -33,6 +35,7 @@ function Login() {
 
       if (!response.data.admin) {
         setError('A felhasználó nem admin')
+        setLoading(false)
         return
       }
 
@@ -52,6 +55,7 @@ function Login() {
       }
 
       setError('Váratlan hiba')
+      setLoading(false)
     }
   }
 
@@ -66,7 +70,7 @@ function Login() {
           </Stack>
         </CardContent>
         <CartActions sx={{ justifyContent: "center" }}>
-          <Button type="submit">Bejelentkezés</Button>
+          <LoadingButton loading={loading} type="submit">Bejelentkezés</LoadingButton>
         </CartActions>
       </form>
     </Card>
