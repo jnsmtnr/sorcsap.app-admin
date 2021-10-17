@@ -5,3 +5,7 @@ const api = create({
 })
 
 export default api
+
+export function setToken(token) {
+    api.defaults.headers.common['Authorization'] = 'Bearer ' + token
+}

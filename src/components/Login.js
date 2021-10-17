@@ -2,7 +2,7 @@ import { useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 
-import api from '../api/index'
+import api, { setToken } from '../api/index'
 
 import Card from '@mui/material/Card'
 import CardHeader from '@mui/material/CardHeader'
@@ -46,6 +46,8 @@ function Login() {
           email: email.current.value
         }
       })
+
+      setToken(response.data.token)
 
       history.replace('/')
     } catch (err) {
