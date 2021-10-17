@@ -1,9 +1,10 @@
-import Box from '@mui/material/Box';
+import Box from '@mui/material/Box'
+import { Link } from 'react-router-dom'
 
 export default function Dashboard() {
     return (
         <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-            <div>Bejelentkezve</div>
+            <Link to="/users">Felhasználók</Link>
         </Box>
     )
 }

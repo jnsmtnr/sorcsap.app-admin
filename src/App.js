@@ -4,6 +4,7 @@ import Container from '@mui/material/Container'
 
 import LoginPage from './pages/LoginPage'
 import Dashboard from './pages/Dashboard'
+import Users from './pages/Users'
 
 function App() {
     const token = useSelector(state => state.token)
@@ -14,8 +15,11 @@ function App() {
                 <Switch>
                     {!token && <Route path="/login"><LoginPage /></Route>}
                     {!token && <Redirect to="/login" />}
-                    <Route to="/" exact>
+                    <Route path="/" exact>
                         <Dashboard />
+                    </Route>
+                    <Route path="/users">
+                        <Users />
                     </Route>
                 </Switch>
             </Router>
