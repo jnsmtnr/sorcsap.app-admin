@@ -2,7 +2,7 @@ import { useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 
-import api, { setToken } from '../api/index'
+import api from '../api/index'
 
 import Card from '@mui/material/Card'
 import CardHeader from '@mui/material/CardHeader'
@@ -33,9 +33,10 @@ function Login() {
         password: password.current.value
       })
 
+      setLoading(false)
+
       if (!response.data.admin) {
         setError('A felhasználó nem admin')
-        setLoading(false)
         return
       }
 
@@ -47,17 +48,16 @@ function Login() {
         }
       })
 
-      setToken(response.data.token)
-
       history.replace('/')
     } catch (err) {
+      setLoading(false)
+
       if (err.response?.status === 401) {
         setError('Rossz e-mail vagy jelszó')
         return
       }
 
       setError('Váratlan hiba')
-      setLoading(false)
     }
   }
 
