@@ -1,9 +1,11 @@
+import { createStore } from 'redux';
+
 const initState = {
     email: null,
     token: null,
 }
 
-export default function reducer(state = initState, action) {
+function reducer(state = initState, action) {
     switch (action.type) {
         case 'set-user':
             return {
@@ -18,3 +20,5 @@ export default function reducer(state = initState, action) {
             return state
     }
 }
+
+export default createStore(reducer)
