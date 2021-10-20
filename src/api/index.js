@@ -1,5 +1,5 @@
 import { create } from 'axios'
-import { store } from '../index'
+import store from '../store'
 
 const api = create({
     baseURL: process.env.REACT_APP_API_BASE_URL
