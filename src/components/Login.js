@@ -40,6 +40,8 @@ function Login() {
         return
       }
 
+      localStorage.setItem('login-data', JSON.stringify({ token: response.data.token, email: email.current.value }))
+
       dispatch({
         type: 'set-user',
         payload: {
