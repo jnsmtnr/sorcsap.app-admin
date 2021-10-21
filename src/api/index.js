@@ -18,6 +18,8 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(null, (error) => {
     if (error.response.status === 403) {
         store.dispatch({ type: 'reset-user' })
+
+        localStorage.removeItem('login-data')
     }
 
     return Promise.reject(error)
