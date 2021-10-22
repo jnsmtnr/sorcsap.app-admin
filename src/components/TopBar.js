@@ -18,7 +18,7 @@ export default function TopBar() {
 
     return (
         <AppBar position="static">
-            <Toolbar sx={{ justifyContent: 'end' }} variant="dense" disableGutters>
+            <Toolbar sx={{ justifyContent: 'flex-end' }} variant="dense" disableGutters>
                 <Typography mr={1} variant="button">{email}</Typography>
                 <Divider
                     flexItem
