@@ -9,12 +9,19 @@ import store from './store'
 
 import { BrowserRouter as Router } from 'react-router-dom'
 
+import ThemeProvider from './theme'
+import CssBaseline from '@mui/material/CssBaseline'
+
 ReactDOM.render(
-  <Provider store={store}>
-    <Router>
-      <App />
-    </Router>
-  </Provider>,
+  <ThemeProvider>
+    <CssBaseline />
+    <Provider store={store}>
+      <Router>
+        <App />
+      </Router>
+    </Provider>
+  </ThemeProvider>,
+
   document.getElementById('root')
 );
 
