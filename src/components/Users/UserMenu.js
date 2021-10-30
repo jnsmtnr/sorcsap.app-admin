@@ -25,6 +25,12 @@ export default function UserMenu(props) {
         closeMenu()
     }
 
+    function deleteUser() {
+        api.delete('/users/' + props.id).then(props.onRefresh)
+
+        closeMenu()
+    }
+
     return (
         <React.Fragment>
             <IconButton onClick={openMenu}>
@@ -33,6 +39,9 @@ export default function UserMenu(props) {
             <Menu open={open} anchorEl={anchor} onClose={closeMenu}>
                 <MenuItem onClick={toggleAdmin}>
                     {props.isAdmin ? 'Ne legyen admin' : 'Legyen admin'}
+                </MenuItem>
+                <MenuItem onClick={deleteUser}>
+                    Törlés
                 </MenuItem>
             </Menu>
         </React.Fragment>
