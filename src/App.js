@@ -5,6 +5,7 @@ import { Switch, Route, Redirect } from 'react-router-dom'
 import LoginPage from './pages/LoginPage'
 import Dashboard from './pages/Dashboard'
 import Users from './pages/Users'
+import Beers from './pages/Beers'
 
 import Box from '@mui/material/Box'
 import Container from '@mui/material/Container'
@@ -36,6 +37,9 @@ function App() {
                     </Route>
                     <Route path="/users">
                         <Users />
+                    </Route>
+                    <Route path="/beers">
+                        <Beers />
                     </Route>
                     <Redirect to="/" />
                 </Switch>
