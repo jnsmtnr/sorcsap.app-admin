@@ -10,8 +10,8 @@ export default function Dashboard() {
             height: 'calc(100vh - 48px)', 
             flexDirection: 'column' 
         }}>
-            <Link to="/users">Felhasználók</Link>
-            <Link to="/beers">Sörök</Link>
+            <Link to="users">Felhasználók</Link>
+            <Link to="beers">Sörök</Link>
         </Box>
     )
 }

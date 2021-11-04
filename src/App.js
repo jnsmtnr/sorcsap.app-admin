@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { Switch, Route, Redirect } from 'react-router-dom'
+import { Routes, Route, Navigate } from 'react-router-dom'
 
 import LoginPage from './pages/LoginPage'
 import Dashboard from './pages/Dashboard'
@@ -31,18 +31,12 @@ function App() {
         <Box>
             <TopBar />
             <Container maxWidth="md">
-                <Switch>
-                    <Route path="/" exact>
-                        <Dashboard />
-                    </Route>
-                    <Route path="/users">
-                        <Users />
-                    </Route>
-                    <Route path="/beers">
-                        <Beers />
-                    </Route>
-                    <Redirect to="/" />
-                </Switch>
+                <Routes>
+                    <Route path="/" element={<Dashboard />} />
+                    <Route path="users" element={<Users />} />
+                    <Route path="beers" element={<Beers />} />
+                    <Route path="*" element={<Navigate to="/" replace />} />
+                </Routes>
             </Container>
         </Box>
     );
