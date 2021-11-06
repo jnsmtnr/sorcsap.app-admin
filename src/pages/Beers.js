@@ -43,7 +43,7 @@ export default function Beers() {
             <Box sx={{ textAlign: "center", marginTop: '1em' }}>
                 <Button onClick={openModal} variant="outlined">Új sör hozzáadása</Button>
             </Box>
-            <BeerList beers={beers} />
+            <BeerList beers={beers} onRefresh={getBeers} />
             {open && <BeerEditor open={open} onClose={closeModal} onSave={getBeers} />}
         </React.Fragment>
     )

@@ -5,6 +5,8 @@ import TableBody from '@mui/material/TableBody'
 import TableRow from '@mui/material/TableRow'
 import TableCell from '@mui/material/TableCell'
 
+import BeerMenu from './BeerMenu'
+
 export default function BeerList(props) {
     return (
         <TableContainer>
@@ -15,6 +17,7 @@ export default function BeerList(props) {
                         <TableCell>Típus</TableCell>
                         <TableCell>Alkohol</TableCell>
                         <TableCell>Főzde</TableCell>
+                        <TableCell></TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -24,6 +27,9 @@ export default function BeerList(props) {
                             <TableCell>{beer.type}</TableCell>
                             <TableCell>{beer.alc} %</TableCell>
                             <TableCell>{beer.brewery}</TableCell>
+                            <TableCell padding="checkbox">
+                                <BeerMenu id={beer._id} onRefresh={props.onRefresh} />
+                            </TableCell>
                         </TableRow>
                     ))}
                 </TableBody>
