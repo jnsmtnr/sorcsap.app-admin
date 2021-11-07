@@ -28,7 +28,7 @@ export default function BeerList(props) {
                             <TableCell>{beer.alc} %</TableCell>
                             <TableCell>{beer.brewery}</TableCell>
                             <TableCell padding="checkbox">
-                                <BeerMenu id={beer._id} onRefresh={props.onRefresh} />
+                                <BeerMenu id={beer._id} onRefresh={props.onRefresh} onEdit={props.onEdit} />
                             </TableCell>
                         </TableRow>
                     ))}

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import Dialog from '@mui/material/Dialog'
 import DialogTitle from '@mui/material/DialogTitle'
@@ -21,6 +21,17 @@ export default function BeerEditor(props) {
 
     const [error, setError] = useState({})
     const [loading, setLoading] = useState(false)
+
+    const { selected } = props
+
+    useEffect(() => {
+        if (selected) {
+            setName(selected.name)
+            setBrewery(selected.brewery)
+            setAlc(selected.alc)
+            setType(selected.type)
+        }
+    }, [selected])
 
     function saveBeer() {
         setError({})
@@ -50,7 +61,11 @@ export default function BeerEditor(props) {
         if (hasError) return
 
         setLoading(true)
-        api.post('/beers', { name, brewery, alc: +alc, type })
+
+        const mode = selected ? 'patch' : 'post'
+        const url = selected ? '/beers/' + selected._id : '/beers'
+
+        api[mode](url, { name, brewery, alc: +alc, type })
             .then(() => {
                 props.onSave()
                 props.onClose()

@@ -11,6 +11,7 @@ import BeerEditor from '../components/Beers/BeerEditor'
 export default function Beers() {
     const [beers, setBeers] = useState([])
     const [open, setOpen] = useState(false)
+    const [selectedBeer, setSelectedBeer] = useState(null)
 
     function openModal() {
         setOpen(true)
@@ -18,6 +19,7 @@ export default function Beers() {
 
     function closeModal() {
         setOpen(false)
+        setSelectedBeer(null)
     }
 
     const getBeers = useCallback(() => {
@@ -27,6 +29,11 @@ export default function Beers() {
             })
             .catch(console.log)
     }, [])
+
+    const editBeer = useCallback((id) => {
+        setSelectedBeer(beers.find((beer) => beer._id === id))
+        setOpen(true)
+    }, [beers])
 
     useEffect(() => {
         getBeers()
@@ -43,8 +50,8 @@ export default function Beers() {
             <Box sx={{ textAlign: "center", marginTop: '1em' }}>
                 <Button onClick={openModal} variant="outlined">Új sör hozzáadása</Button>
             </Box>
-            <BeerList beers={beers} onRefresh={getBeers} />
-            {open && <BeerEditor open={open} onClose={closeModal} onSave={getBeers} />}
+            <BeerList beers={beers} onRefresh={getBeers} onEdit={editBeer} />
+            {open && <BeerEditor open={open} onClose={closeModal} onSave={getBeers} selected={selectedBeer} />}
         </React.Fragment>
     )
 }
