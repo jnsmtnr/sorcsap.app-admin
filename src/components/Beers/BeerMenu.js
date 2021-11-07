@@ -25,12 +25,21 @@ export default function UserMenu(props) {
         closeMenu()
     }
 
+    function editBeer() {
+        props.onEdit(props.id)
+
+        closeMenu()
+    }
+
     return (
         <React.Fragment>
             <IconButton onClick={openMenu}>
                 <MoreHorizIcon />
             </IconButton>
             <Menu open={open} anchorEl={anchor} onClose={closeMenu}>
+                <MenuItem onClick={editBeer}>
+                    Szerkesztés
+                </MenuItem>
                 <MenuItem onClick={deleteBeer}>
                     Törlés
                 </MenuItem>
