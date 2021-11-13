@@ -1,9 +1,11 @@
-import { useEffect, useState, useCallback } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import api from '../api'
 
 import UserList from '../components/Users/UserList'
 import Box from '@mui/material/Box'
 import CircularProgress from '@mui/material/CircularProgress'
+
+import BackButton from '../components/BackButton'
 
 export default function Users() {
     const [users, setUsers] = useState([])
@@ -20,10 +22,15 @@ export default function Users() {
 
 
     if (users.length === 0) return (
-        <Box sx={{ display: 'flex', height: 'calc(100vh - 48px)', justifyContent: 'center', alignItems: 'center'}}>
+        <Box sx={{ display: 'flex', height: 'calc(100vh - 48px)', justifyContent: 'center', alignItems: 'center' }}>
             <CircularProgress />
         </Box>
     )
 
-    return <UserList users={users} onRefresh={getUsers} />
+    return (
+        <React.Fragment>
+            <BackButton>Felhasználók</BackButton>
+            <UserList users={users} onRefresh={getUsers} />
+        </React.Fragment>
+    )
 }
