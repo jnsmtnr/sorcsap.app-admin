@@ -3,6 +3,7 @@ import { createStore } from 'redux';
 const initState = {
     email: null,
     token: null,
+    expiresAt: null,
 }
 
 function reducer(state = initState, action) {
@@ -11,6 +12,7 @@ function reducer(state = initState, action) {
             return {
                 email: action.payload.email,
                 token: action.payload.token,
+                expiresAt: action.payload.expiresAt,
             }
         case 'reset-user':
             return {

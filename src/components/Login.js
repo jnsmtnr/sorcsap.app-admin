@@ -38,13 +38,20 @@ function Login() {
         return
       }
 
-      localStorage.setItem('login-data', JSON.stringify({ token: response.data.token, email: email.current.value }))
+      const expiresAt = new Date().getTime() + 3600000
+
+      localStorage.setItem('login-data', JSON.stringify({ 
+        token: response.data.token, 
+        email: email.current.value,
+        expiresAt
+      }))
 
       dispatch({
         type: 'set-user',
         payload: {
           token: response.data.token,
-          email: email.current.value
+          email: email.current.value,
+          expiresAt
         }
       })
     } catch (err) {
