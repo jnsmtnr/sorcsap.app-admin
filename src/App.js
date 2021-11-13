@@ -17,7 +17,7 @@ function App() {
 
     useEffect(() => {
         const loginData = JSON.parse(localStorage.getItem('login-data'))
-        if (loginData) {
+        if (loginData && loginData.expiresAt > new Date().getTime()) {
             dispatch({
                 type: 'set-user',
                 payload: loginData
