@@ -7,6 +7,7 @@ import CircularProgress from '@mui/material/CircularProgress'
 
 import BeerList from '../components/Beers/BeerList'
 import BeerEditor from '../components/Beers/BeerEditor'
+import BackButton from '../components/BackButton'
 
 export default function Beers() {
     const [beers, setBeers] = useState([])
@@ -47,7 +48,8 @@ export default function Beers() {
 
     return (
         <React.Fragment>
-            <Box sx={{ textAlign: "center", marginTop: '1em' }}>
+            <BackButton>Sörök</BackButton>
+            <Box textAlign="center">
                 <Button onClick={openModal} variant="outlined">Új sör hozzáadása</Button>
             </Box>
             <BeerList beers={beers} onRefresh={getBeers} onEdit={editBeer} />

@@ -30,7 +30,7 @@ function App() {
     return (
         <Box>
             <TopBar />
-            <Container maxWidth="md">
+            <Container maxWidth="md" sx={{ paddingTop: '1em' }}>
                 <Routes>
                     <Route path="/" element={<Dashboard />} />
                     <Route path="users" element={<Users />} />
