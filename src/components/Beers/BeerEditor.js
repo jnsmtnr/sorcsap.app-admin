@@ -9,7 +9,7 @@ import Button from '@mui/material/Button'
 import LoadingButton from '@mui/lab/LoadingButton'
 import TextField from '@mui/material/TextField'
 import InputAdornment from '@mui/material/InputAdornment'
-import Stack from '@mui/material/Stack';
+import Stack from '@mui/material/Stack'
 
 import api from '../../api'
 

@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import api from '../../api'
 
 import IconButton from '@mui/material/IconButton'
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 

@@ -39,7 +39,7 @@ function App() {
                 </Routes>
             </Container>
         </Box>
-    );
+    )
 }
 
-export default App;
+export default App

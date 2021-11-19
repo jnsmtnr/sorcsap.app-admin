@@ -1,5 +1,5 @@
 import { ThemeProvider, createTheme } from '@mui/material/styles'
-import { orange } from '@mui/material/colors';
+import { orange } from '@mui/material/colors'
 
 export default function Provider({children}) {
     const theme = createTheme({
