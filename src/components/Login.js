@@ -38,7 +38,7 @@ function Login() {
         return
       }
 
-      const expiresAt = new Date().getTime() + 3600000
+      const expiresAt = new Date().getTime() + (7 * 24 * 60 * 60 * 1000)
 
       localStorage.setItem('login-data', JSON.stringify({ 
         token: response.data.token, 
