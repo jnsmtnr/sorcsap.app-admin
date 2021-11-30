@@ -7,11 +7,12 @@ export default function Dashboard() {
             display: 'flex', 
             justifyContent: 'center', 
             alignItems: 'center', 
-            height: 'calc(100vh - 48px)', 
+            height: 'calc(100vh - 48px - 1em)', 
             flexDirection: 'column' 
         }}>
             <Link to="users">Felhasználók</Link>
             <Link to="beers">Sörök</Link>
+            <Link to="new-beers">Új sörök</Link>
         </Box>
     )
 }

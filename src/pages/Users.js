@@ -22,7 +22,7 @@ export default function Users() {
 
 
     if (users.length === 0) return (
-        <Box sx={{ display: 'flex', height: 'calc(100vh - 48px)', justifyContent: 'center', alignItems: 'center' }}>
+        <Box sx={{ display: 'flex', height: 'calc(100vh - 48px - 1em)', justifyContent: 'center', alignItems: 'center' }}>
             <CircularProgress />
         </Box>
     )
