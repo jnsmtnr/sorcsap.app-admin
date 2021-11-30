@@ -2,10 +2,11 @@ import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Routes, Route, Navigate } from 'react-router-dom'
 
-import LoginPage from './pages/LoginPage'
-import Dashboard from './pages/Dashboard'
-import Users from './pages/Users'
-import Beers from './pages/Beers'
+import LoginPage from './pages/LoginPage.js'
+import Dashboard from './pages/Dashboard.js'
+import Users from './pages/Users.js'
+import Beers from './pages/Beers.js'
+import NewBeers from './pages/NewBeers.js'
 
 import Box from '@mui/material/Box'
 import Container from '@mui/material/Container'
@@ -35,6 +36,7 @@ function App() {
                     <Route path="/" element={<Dashboard />} />
                     <Route path="users" element={<Users />} />
                     <Route path="beers" element={<Beers />} />
+                    <Route path="new-beers" element={<NewBeers />} />
                     <Route path="*" element={<Navigate to="/" replace />} />
                 </Routes>
             </Container>
