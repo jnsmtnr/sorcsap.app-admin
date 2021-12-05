@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import Dialog from '@mui/material/Dialog'
 import DialogTitle from '@mui/material/DialogTitle'
@@ -11,27 +11,13 @@ import TextField from '@mui/material/TextField'
 import InputAdornment from '@mui/material/InputAdornment'
 import Stack from '@mui/material/Stack'
 
-import api from '../../api'
-
 export default function BeerEditor(props) {
-    const [name, setName] = useState('')
-    const [brewery, setBrewery] = useState('')
-    const [alc, setAlc] = useState('')
-    const [type, setType] = useState('')
+    const [name, setName] = useState(props.selected?.name || '')
+    const [brewery, setBrewery] = useState(props.selected?.brewery || '')
+    const [alc, setAlc] = useState(props.selected?.alc || '')
+    const [type, setType] = useState(props.selected?.type || '')
 
     const [error, setError] = useState({})
-    const [loading, setLoading] = useState(false)
-
-    const { selected } = props
-
-    useEffect(() => {
-        if (selected) {
-            setName(selected.name)
-            setBrewery(selected.brewery)
-            setAlc(selected.alc)
-            setType(selected.type)
-        }
-    }, [selected])
 
     function saveBeer() {
         setError({})
@@ -60,20 +46,7 @@ export default function BeerEditor(props) {
 
         if (hasError) return
 
-        setLoading(true)
-
-        const mode = selected ? 'patch' : 'post'
-        const url = selected ? '/beers/' + selected._id : '/beers'
-
-        api[mode](url, { name, brewery, alc: +alc, type })
-            .then(() => {
-                props.onSave()
-                props.onClose()
-            })
-            .catch((error) => {
-                console.log(error) // TODO: error handling
-                setLoading(false)
-            })
+        props.onSave(name, brewery, type, alc)
     }
 
     return (
@@ -130,7 +103,7 @@ export default function BeerEditor(props) {
             </DialogContent>
             <DialogActions>
                 <Button onClick={props.onClose}>Mégsem</Button>
-                <LoadingButton loading={loading} variant="contained" onClick={saveBeer}>Mentés</LoadingButton>
+                <LoadingButton loading={props.loading} variant="contained" onClick={saveBeer}>Mentés</LoadingButton>
             </DialogActions>
         </Dialog>
     )
