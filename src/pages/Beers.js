@@ -13,6 +13,7 @@ export default function Beers() {
     const [beers, setBeers] = useState([])
     const [open, setOpen] = useState(false)
     const [selectedBeer, setSelectedBeer] = useState(null)
+    const [loading, setLoading] = useState(false)
 
     function openModal() {
         setOpen(true)
@@ -40,6 +41,23 @@ export default function Beers() {
         getBeers()
     }, [getBeers])
 
+    function onSaveHandler(name, brewery, type, alc) {
+        setLoading(true)
+
+        const mode = selectedBeer ? 'patch' : 'post'
+        const url = selectedBeer ? '/beers/' + selectedBeer._id : '/beers'
+
+        api[mode](url, { name, brewery, alc: +alc, type })
+            .then(() => {
+                getBeers()
+                closeModal()
+            })
+            .catch((error) => {
+                console.log(error) // TODO: error handling
+            })
+            .finally(() => setLoading(false))
+    }
+
     if (beers.length === 0) return (
         <Box sx={{ display: 'flex', height: 'calc(100vh - 48px - 1em)', justifyContent: 'center', alignItems: 'center' }}>
             <CircularProgress />
@@ -53,7 +71,15 @@ export default function Beers() {
                 <Button onClick={openModal} variant="outlined">Új sör hozzáadása</Button>
             </Box>
             <BeerList beers={beers} onRefresh={getBeers} onEdit={editBeer} />
-            {open && <BeerEditor open={open} onClose={closeModal} onSave={getBeers} selected={selectedBeer} />}
+            {open && (
+                <BeerEditor
+                    open={open}
+                    loading={loading}
+                    selected={selectedBeer}
+                    onSave={onSaveHandler}
+                    onClose={closeModal}
+                />
+            )}
         </React.Fragment>
     )
 }
