@@ -3,10 +3,12 @@ import React, { useState, useEffect, useCallback } from "react"
 import Box from '@mui/material/Box'
 import CircularProgress from "@mui/material/CircularProgress"
 import Button from '@mui/material/Button'
+import Stack from '@mui/material/Stack'
 
 import BackButton from '../components/BackButton.js'
 import NewBeerList from '../components/NewBeers/NewBeerList.js'
 import BeerEditor from '../components/Beers/BeerEditor.js'
+import BeerSelector from "../components/NewBeers/BeerSelector.js"
 
 import api from '../api'
 
@@ -15,7 +17,8 @@ export default function NewBeers() {
     const [saveLoading, setSaveLoading] = useState(false)
     const [newBeers, setNewBeers] = useState([])
     const [selectedBeerIds, setSelectedBeerIds] = useState([])
-    const [open, setOpen] = useState(false)
+    const [newBeerOpen, setNewBeerOpen] = useState(false)
+    const [existingBeerOpen, setExistingBeerOpen] = useState(false)
 
     const getNewBeers = useCallback(() => {
         setLoading(true)
@@ -38,21 +41,25 @@ export default function NewBeers() {
         })
     }
 
-    function openModal() {
-        setOpen(true)
-    }
-
-    function closeModal() {
-        setOpen(false)
-    }
-
-    function onSaveHandler(name, brewery, type, alc) {
+    function onNewBeerSaveHandler(name, brewery, type, alc) {
         setSaveLoading(true)
 
-        api.post('/ratings/new-beers//save-new-beer', { name, brewery, type, alc: +alc, ratingIds: selectedBeerIds })
+        api.post('/ratings/new-beers/save-new-beer', { name, brewery, type, alc: +alc, ratingIds: selectedBeerIds })
             .then(() => {
                 getNewBeers()
-                closeModal()
+                setNewBeerOpen(false)
+            })
+            .catch(console.log)
+            .finally(() => setSaveLoading(false))
+    }
+
+    function onExistingBeerSaveHandler(beerId) {
+        setSaveLoading(true)
+
+        api.post('/ratings/new-beers/save-existing-beer', { beerId, ratingIds: selectedBeerIds })
+            .then(() => {
+                getNewBeers()
+                setExistingBeerOpen(false)
             })
             .catch(console.log)
             .finally(() => setSaveLoading(false))
@@ -61,28 +68,43 @@ export default function NewBeers() {
     return (
         <React.Fragment>
             <BackButton>Új Sörök</BackButton>
-            <Box textAlign="center">
+            <Stack spacing={2} direction="row" justifyContent="center">
                 <Button
                     variant="outlined"
                     disabled={selectedBeerIds.length === 0}
-                    onClick={openModal}
+                    onClick={() => setNewBeerOpen(true)}
+                    
                 >
                     Új sör hozzáadása
                 </Button>
-            </Box>
+                <Button
+                    variant="outlined"
+                    disabled={selectedBeerIds.length === 0}
+                    onClick={() => setExistingBeerOpen(true)}
+                >
+                    Meglévő sörhöz hozzáadás
+                </Button>
+            </Stack>
             {!loading && newBeers.length > 0 && <NewBeerList beers={newBeers} selected={selectedBeerIds} onSelect={onSelectHandler} />}
             {newBeers.length === 0 && (
                 <Box textAlign="center" mt={2}>
                     {loading ? <CircularProgress /> : 'Nincs új sör'}
                 </Box>
             )}
-            {open && (
+            {newBeerOpen && (
                 <BeerEditor
-                    open={open}
+                    open={newBeerOpen}
                     loading={saveLoading}
                     selected={newBeers.find(beer => beer._id === selectedBeerIds[0])}
-                    onClose={closeModal}
-                    onSave={onSaveHandler}
+                    onClose={() => setNewBeerOpen(false)}
+                    onSave={onNewBeerSaveHandler}
+                />
+            )}
+            {existingBeerOpen && (
+                <BeerSelector
+                    loading={saveLoading}
+                    onClose={() => setExistingBeerOpen(false)}
+                    onSave={onExistingBeerSaveHandler}
                 />
             )}
         </React.Fragment>
