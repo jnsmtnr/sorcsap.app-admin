@@ -48,6 +48,7 @@ export default function NewBeers() {
             .then(() => {
                 getNewBeers()
                 setNewBeerOpen(false)
+                setSelectedBeerIds([])
             })
             .catch(console.log)
             .finally(() => setSaveLoading(false))
@@ -60,6 +61,7 @@ export default function NewBeers() {
             .then(() => {
                 getNewBeers()
                 setExistingBeerOpen(false)
+                setSelectedBeerIds([])
             })
             .catch(console.log)
             .finally(() => setSaveLoading(false))
