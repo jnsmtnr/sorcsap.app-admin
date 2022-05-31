@@ -16,6 +16,7 @@ export default function UserList(props) {
                     <TableRow>
                         <TableCell>ID</TableCell>
                         <TableCell>Email</TableCell>
+                        <TableCell align='center'>Ratings</TableCell>
                         <TableCell>Admin</TableCell>
                         <TableCell></TableCell>
                     </TableRow>
@@ -25,6 +26,7 @@ export default function UserList(props) {
                         <TableRow key={user._id} hover>
                             <TableCell>{user._id}</TableCell>
                             <TableCell>{user.email}</TableCell>
+                            <TableCell align='center'>{user.ratings}</TableCell>
                             <TableCell padding="checkbox" align="center">
                                 {user.admin && <CheckCircleOutlineIcon fontSize="small" color="success" />}
                             </TableCell>
