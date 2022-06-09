@@ -10,6 +10,7 @@ import CartActions from '@mui/material/CardActions'
 import LoadingButton from '@mui/lab/LoadingButton'
 import TextField from '@mui/material/TextField'
 import Stack from '@mui/material/Stack'
+import { setUser } from '../store/user'
 
 function Login() {
   const dispatch = useDispatch()
@@ -40,20 +41,18 @@ function Login() {
 
       const expiresAt = new Date().getTime() + (7 * 24 * 60 * 60 * 1000)
 
-      localStorage.setItem('login-data', JSON.stringify({ 
-        token: response.data.token, 
+      localStorage.setItem('login-data', JSON.stringify({
+        token: response.data.token,
         email: email.current.value,
         expiresAt
       }))
 
-      dispatch({
-        type: 'set-user',
-        payload: {
-          token: response.data.token,
-          email: email.current.value,
-          expiresAt
-        }
-      })
+      dispatch(setUser({
+        token: response.data.token,
+        email: email.current.value,
+        expiresAt
+      }))
+      
     } catch (err) {
       setLoading(false)
 

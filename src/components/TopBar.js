@@ -5,15 +5,14 @@ import Toolbar from '@mui/material/Toolbar'
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 import Divider from '@mui/material/Divider'
+import { resetUser } from '../store/user'
 
 export default function TopBar() {
     const dispatch = useDispatch()
-    const email = useSelector(state => state.email)
+    const email = useSelector(state => state.user.email)
 
     function logout() {
-        dispatch({
-            type: 'reset-user'
-        })
+        dispatch(resetUser())
     }
 
     return (

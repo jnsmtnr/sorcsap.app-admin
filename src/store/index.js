@@ -1,26 +1,9 @@
-import { createStore } from 'redux'
+import { configureStore } from '@reduxjs/toolkit'
 
-const initState = {
-    email: null,
-    token: null,
-    expiresAt: null,
-}
+import userReducer from './user'
 
-function reducer(state = initState, action) {
-    switch (action.type) {
-        case 'set-user':
-            return {
-                email: action.payload.email,
-                token: action.payload.token,
-                expiresAt: action.payload.expiresAt,
-            }
-        case 'reset-user':
-            return {
-                ...initState
-            }
-        default:
-            return state
+export const store = configureStore({
+    reducer: {
+        user: userReducer,
     }
-}
-
-export default createStore(reducer)
+})

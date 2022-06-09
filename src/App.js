@@ -12,17 +12,17 @@ import Box from '@mui/material/Box'
 import Container from '@mui/material/Container'
 import TopBar from './components/TopBar'
 
+import { setUser } from './store/user'
+
 function App() {
     const dispatch = useDispatch()
-    const token = useSelector(state => state.token)
+    const token = useSelector(state => state.user.token)
 
     useEffect(() => {
         const loginData = JSON.parse(localStorage.getItem('login-data'))
+        
         if (loginData && loginData.expiresAt > new Date().getTime()) {
-            dispatch({
-                type: 'set-user',
-                payload: loginData
-            })
+            dispatch(setUser(loginData))
         }
     }, [dispatch])
 
